@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+  <style>
+    body { font-family: Arial; padding: 40px; text-align: center; }
+    button { padding: 10px 20px; font-size: 16px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h2>Selamat datang di Dashboard</h2>
+<p id="user-info">Memuat...</p>
+<button onclick="logout()">Logout</button>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxrgXNXj9A_8PslheFPlaCwwcopSxZ8wo",
+    authDomain: "manzsmods.firebaseapp.com",
+    projectId: "manzsmods"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Cek status login
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      document.getElementById('user-info').innerText = "Login sebagai: " + user.email;
+    } else {
+      window.location.href = "index.html"; // redirect ke login
+    }
+  });
+
+  function logout() {
+    auth.signOut().then(() => {
+      alert("Berhasil logout.");
+      window.location.href = "index.html";
+    });
+  }
+</script>
+
+</body>
+</html>
